@@ -12,18 +12,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/rest")
 public class UserController {
 
+    private static final String API = "http://localhost:4200";
     private static final String LOGIN = "/login";
     private static final String TOKEN = "token";
     private static final String UNAUTHORIZED = "unauthorized";
-    private static final String USER= "user";
+    private static final String USER = "user";
     private static final String ADD_NEW_USER = "/add-new-user";
+    private static final String GET_USER_BY_USER_NAME = "/get-logged-in-user";
+    private static final String LOGOUT = "/logout";
 
+    @Autowired
     private UserService userService;
 
     @RequestMapping(value = LOGIN, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+    @CrossOrigin(origins = API)
     public ResponseEntity<String> login(@RequestBody UserEntity user) {
         JsonObject jsonObject = new JsonObject();
         String token = userService.authenticate(user);
@@ -40,6 +44,7 @@ public class UserController {
     }
 
     @RequestMapping(value = ADD_NEW_USER, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+    @CrossOrigin(origins = API)
     public ResponseEntity<String> saveUser(@RequestBody UserEntity user) {
         try {
             userService.saveUser(user);
@@ -47,5 +52,11 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = GET_USER_BY_USER_NAME)
+    @CrossOrigin(origins = API)
+    public UserEntity getCurrentUserByUserName(@RequestParam String userName) {
+        return userService.findByUsername(userName);
     }
 }

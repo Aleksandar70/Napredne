@@ -5,22 +5,26 @@ import com.msgnetconomy.appraisalsheet.service.AppraisalSheetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest")
 public class AppraisalSheetController {
+
+    private static final String API = "http://localhost:4200";
     private static final String ADD_APPRAISAL_SHEET = "/add-appraisal-sheet";
     private static final String ARCHIVE_PAGE = "/archive-page";
+    private static final String GET_ALL_APPRAISAL_SHEET = "/get-appraisal-sheet";
     private static final Logger logger = LoggerFactory.getLogger(AppraisalSheetController.class);
-    private static final String GET_APPRAISAL_SHEET = "/get-appraisal-sheet";
 
+    @Autowired
     private AppraisalSheetService appraisalSheetService;
 
     @PostMapping(value = ADD_APPRAISAL_SHEET)
+    @CrossOrigin(origins = API)
     AppraisalSheetEntity addAppraisalSheet(@RequestBody AppraisalSheetEntity appraisalSheetEntity, HttpServletResponse response) {
         try {
             AppraisalSheetEntity newAppSheet = appraisalSheetService.saveOrUpdateAppraisalSheet(appraisalSheetEntity);
@@ -34,12 +38,14 @@ public class AppraisalSheetController {
     }
 
     @GetMapping(value = ARCHIVE_PAGE)
-    List<AppraisalSheetEntity> getAllAppraisalSheets() {
-        return appraisalSheetService.getAllAppraisalSheets();
+    @CrossOrigin(origins = API)
+    List<AppraisalSheetEntity> findAppDocumentsByUser(@RequestParam String userName) {
+        return appraisalSheetService.findAppDocumentsByUser(userName);
     }
 
-    @GetMapping(value = GET_APPRAISAL_SHEET)
-    AppraisalSheetEntity getAppraisalSheetByFirstNameAndLastName(@RequestParam String firstName, @RequestParam String lastName) {
-        return appraisalSheetService.getAppraisalSheetByFirstNameAndLastName(firstName, lastName);
+    @GetMapping(value = GET_ALL_APPRAISAL_SHEET)
+    @CrossOrigin(origins = API)
+    List<AppraisalSheetEntity> findAllAppraisalSheet() {
+        return appraisalSheetService.findAllAppraisalSheet();
     }
 }

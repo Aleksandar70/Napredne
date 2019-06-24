@@ -9,11 +9,9 @@ public interface AppraisalSheetService {
 
     AppraisalSheetEntity saveOrUpdateAppraisalSheet(AppraisalSheetEntity appraisalSheetEntity);
 
-    AppraisalSheetEntity findByNameAndAppPeriod(String employeeName, String appraisalPeriod);
-
-    List<AppraisalSheetEntity> getAllAppraisalSheets();
-
     UserEntity findByFirstNameAndLastName(AppraisalSheetEntity appraisalSheetEntity);
 
-    AppraisalSheetEntity getAppraisalSheetByFirstNameAndLastName(String firstName, String lastName);
+    List<AppraisalSheetEntity> findAppDocumentsByUser(String loggedInUser);
+
+    List<AppraisalSheetEntity> findAllAppraisalSheet();
 }

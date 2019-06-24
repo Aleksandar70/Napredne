@@ -8,8 +8,7 @@ import com.msgnetconomy.appraisalsheet.service.AppraisalSheetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class AppraisalSheetServiceImpl implements AppraisalSheetService {
@@ -114,22 +113,32 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
     }
 
     @Override
-    public AppraisalSheetEntity findByNameAndAppPeriod(String employeeName, String appraisalPeriod) {
-        return appraisalSheetDAO.findByNameAndAppPeriod(employeeName, appraisalPeriod);
+    public List<AppraisalSheetEntity> findAppDocumentsByUser(String userName) {
+        List<AppraisalSheetEntity> appraisalDocuments = new ArrayList<>();
+        int userId = appraisalSheetDAO.getUserIdByUsername(userName);
+        int userGroupId = appraisalSheetDAO.getUserGroupIdByUsername(userName);
+        if (userGroupId == 1) {
+            appraisalDocuments = appraisalSheetDAO.findAppDocumentsByUserId(userId);
+        }
+        if (userGroupId == 2) {
+            int managerOfTheUser = appraisalSheetDAO.getUserManagerIdByUsername(userName);
+            List<UserEntity> usersOfTheSameManager = appraisalSheetDAO.getAllUsersOfTheSameManager(managerOfTheUser);
+            Map<Integer, List<AppraisalSheetEntity>> usersDocuments = new HashMap<>();
+            usersOfTheSameManager.stream().forEach(user -> usersDocuments.put(user.getUserId(), appraisalSheetDAO.getLockedAppDocumentsByUserId(user.getUserId())));
+            for (Map.Entry<Integer, List<AppraisalSheetEntity>> documentsOfEachUser : usersDocuments.entrySet()) {
+                appraisalDocuments.addAll(documentsOfEachUser.getValue());
+            }
+        }
+        return appraisalDocuments;
     }
 
     @Override
-    public List<AppraisalSheetEntity> getAllAppraisalSheets() {
+    public List<AppraisalSheetEntity> findAllAppraisalSheet() {
         return appraisalSheetDAO.findAll();
     }
 
     @Override
     public UserEntity findByFirstNameAndLastName(AppraisalSheetEntity appraisalSheetEntity) {
         return userDAO.findByFirstNameAndLastName(appraisalSheetEntity.getEmployeeName());
-    }
-
-    @Override
-    public AppraisalSheetEntity getAppraisalSheetByFirstNameAndLastName(String firstName, String lastName) {
-        return appraisalSheetDAO.getAppraisalSheetByFirstNameAndLastName(firstName, lastName);
     }
 }

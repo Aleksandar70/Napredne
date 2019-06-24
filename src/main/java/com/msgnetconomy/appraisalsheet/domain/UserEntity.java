@@ -12,6 +12,7 @@ public class UserEntity {
     private String username;
     private String password;
     private UserGroupEntity userGroup;
+    private UserManagerEntity userManager;
 
     @Id
     @Column(name = "userID")
@@ -88,5 +89,15 @@ public class UserEntity {
 
     public void setUserGroup(UserGroupEntity userGroup) {
         this.userGroup = userGroup;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_managerID", referencedColumnName = "user_managerID")
+    public UserManagerEntity getUserManager() {
+        return userManager;
+    }
+
+    public void setUserManager(UserManagerEntity userManager) {
+        this.userManager = userManager;
     }
 }

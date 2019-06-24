@@ -13,19 +13,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest")
 public class UserGroupController {
+
+    private static final String API = "http://localhost:4200";
     private static final String ADD_GET_USER_GROUP = "/add-get-user-group";
     private static final Logger logger = LoggerFactory.getLogger(UserGroupController.class);
 
+    @Autowired
     private UserGroupService userGroupService;
 
     @GetMapping(value = ADD_GET_USER_GROUP)
+    @CrossOrigin(origins = API)
     public List<UserGroupEntity> getAllUserGroups() {
         return userGroupService.getAllUserGroups();
     }
 
     @PostMapping(value = ADD_GET_USER_GROUP)
+    @CrossOrigin(origins = API)
     ResponseEntity<Authenticator.Success> addUserGroup(@RequestBody UserGroupEntity userGroupEntity) {
         try {
             userGroupService.addUserGroup(userGroupEntity);
@@ -35,4 +39,6 @@ public class UserGroupController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
+
+
 }

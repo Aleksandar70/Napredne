@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
@@ -27,9 +28,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/rest/login").permitAll()
-                .antMatchers("/rest/*").permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
+//                .and()
+//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/login?logout")).logoutSuccessUrl("/login")
                 .and()
                 .addFilterBefore(new CORSFilter(), ChannelProcessingFilter.class)
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
