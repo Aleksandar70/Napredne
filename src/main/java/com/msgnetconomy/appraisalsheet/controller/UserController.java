@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -22,7 +24,7 @@ public class UserController {
     private static final String ADD_NEW_USER = "/add-new-user";
     private static final String GET_USER_BY_USER_NAME = "/get-logged-in-user";
     private static final String LOGOUT = "/logout";
-
+    private static final String GET_ALL_USERS = "/get-all-users";
     @Autowired
     private UserService userService;
 
@@ -58,5 +60,11 @@ public class UserController {
     @CrossOrigin(origins = API)
     public UserEntity getCurrentUserByUserName(@RequestParam String userName) {
         return userService.findByUsername(userName);
+    }
+
+    @GetMapping(value = GET_ALL_USERS)
+    @CrossOrigin(origins = API)
+    public List<UserEntity> getAllUsers() {
+        return userService.findAllUsers();
     }
 }

@@ -2,6 +2,8 @@ package com.msgnetconomy.appraisalsheet.service;
 
 import com.msgnetconomy.appraisalsheet.domain.UserEntity;
 
+import java.util.List;
+
 public interface UserService {
 
     UserEntity findByUsername(String username);
@@ -11,4 +13,6 @@ public interface UserService {
     UserEntity getCurrentUser(UserEntity user);
 
     UserEntity saveUser(UserEntity user);
+
+    List<UserEntity> findAllUsers();
 }

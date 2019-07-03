@@ -129,6 +129,9 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
                 appraisalDocuments.addAll(documentsOfEachUser.getValue());
             }
         }
+        if (userGroupId == 3) {
+            appraisalDocuments = appraisalSheetDAO.findAll();
+        }
         return appraisalDocuments;
     }
 
