@@ -3,6 +3,8 @@ package com.msgnetconomy.appraisalsheet.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.msgnetconomy.appraisalsheet.domain.UserEntity;
+import com.msgnetconomy.appraisalsheet.dto.UserDto;
+import com.msgnetconomy.appraisalsheet.mapper.UserMapper;
 import com.msgnetconomy.appraisalsheet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -25,6 +27,8 @@ public class UserController {
     private static final String GET_USER_BY_USER_NAME = "/get-logged-in-user";
     private static final String LOGOUT = "/logout";
     private static final String GET_ALL_USERS = "/get-all-users";
+    private static final String DELETE_USER = "/delete-user";
+
     @Autowired
     private UserService userService;
 
@@ -66,5 +70,12 @@ public class UserController {
     @CrossOrigin(origins = API)
     public List<UserEntity> getAllUsers() {
         return userService.findAllUsers();
+    }
+
+    @DeleteMapping(path = "/delete-user/{username}")
+    @CrossOrigin(origins = API)
+    public ResponseEntity<UserEntity> deleteUser(@PathVariable String username) {
+        userService.removeUser(username);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

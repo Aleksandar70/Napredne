@@ -115,6 +115,7 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
     @Override
     public List<AppraisalSheetEntity> findAppDocumentsByUser(String userName) {
         List<AppraisalSheetEntity> appraisalDocuments = new ArrayList<>();
+        List<AppraisalSheetEntity> lockedDocuments = new ArrayList<>();
         int userId = appraisalSheetDAO.getUserIdByUsername(userName);
         int userGroupId = appraisalSheetDAO.getUserGroupIdByUsername(userName);
         if (userGroupId == 1) {
@@ -131,6 +132,12 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
         }
         if (userGroupId == 3) {
             appraisalDocuments = appraisalSheetDAO.findAll();
+            appraisalDocuments.forEach(value -> {
+                if (value.isLocked()) {
+                    lockedDocuments.add(value);
+                }
+            });
+            return lockedDocuments;
         }
         return appraisalDocuments;
     }
