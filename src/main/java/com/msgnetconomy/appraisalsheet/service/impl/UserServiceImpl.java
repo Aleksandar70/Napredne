@@ -7,8 +7,8 @@ import com.msgnetconomy.appraisalsheet.mapper.UserMapper;
 import com.msgnetconomy.appraisalsheet.service.UserService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -20,9 +20,11 @@ public class UserServiceImpl implements UserService {
     private static final String COLON = ":";
     private static final String UNAUTHORIZED = "unauthorized";
 
-
     @Autowired
     private UserDAO userDAO;
+
+//    @Autowired
+//    private UserMapper userMapper;
 
     @Override
     public UserEntity findByUsername(String username) {
@@ -41,10 +43,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-//    @Transactional
     public UserEntity getCurrentUser(UserEntity user) {
         return userDAO.login(user.getUsername(), user.getPassword());
-//        return UserMapper.INSTANCE.userToUserDto(userEntity);
+//        return userMapper.userToUserDto(userEntity);
     }
 
     @Override

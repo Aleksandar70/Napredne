@@ -148,6 +148,11 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
     }
 
     @Override
+    public void lockAppraisalSheet(AppraisalSheetEntity appraisalSheetEntity) {
+        appraisalSheetDAO.lockAppraisalSheet(appraisalSheetEntity.getAppraisalSheetID());
+    }
+
+    @Override
     public UserEntity findByFirstNameAndLastName(AppraisalSheetEntity appraisalSheetEntity) {
         return userDAO.findByFirstNameAndLastName(appraisalSheetEntity.getEmployeeName());
     }

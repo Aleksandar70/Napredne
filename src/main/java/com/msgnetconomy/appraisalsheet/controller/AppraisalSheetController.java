@@ -19,6 +19,7 @@ public class AppraisalSheetController {
     private static final String ARCHIVE_PAGE = "/archive-page";
     private static final String GET_ALL_APPRAISAL_SHEET = "/get-appraisal-sheet";
     private static final Logger logger = LoggerFactory.getLogger(AppraisalSheetController.class);
+    private static final String URL_LOCK_APPRAISAL_SHEET = "/lock-appraisal-sheet";
 
     @Autowired
     private AppraisalSheetService appraisalSheetService;
@@ -47,5 +48,11 @@ public class AppraisalSheetController {
     @CrossOrigin(origins = API)
     List<AppraisalSheetEntity> findAllAppraisalSheet() {
         return appraisalSheetService.findAllAppraisalSheet();
+    }
+
+    @PostMapping(value = URL_LOCK_APPRAISAL_SHEET)
+    @CrossOrigin(origins = API)
+    void lockAppraisalSheet(@RequestBody AppraisalSheetEntity appraisalSheetEntity) {
+        appraisalSheetService.lockAppraisalSheet(appraisalSheetEntity);
     }
 }

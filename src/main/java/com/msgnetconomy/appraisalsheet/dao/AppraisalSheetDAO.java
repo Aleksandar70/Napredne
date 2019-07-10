@@ -3,8 +3,10 @@ package com.msgnetconomy.appraisalsheet.dao;
 import com.msgnetconomy.appraisalsheet.domain.AppraisalSheetEntity;
 import com.msgnetconomy.appraisalsheet.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,4 +33,9 @@ public interface AppraisalSheetDAO extends JpaRepository<AppraisalSheetEntity, I
 
     @Query("SELECT ash FROM AppraisalSheetEntity ash WHERE ash.user.userId=?1 AND ash.locked=true")
     List<AppraisalSheetEntity> getLockedAppDocumentsByUserId(Integer userId);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE AppraisalSheetEntity ash SET ash.locked=0 WHERE ash.appraisalSheetID=?1")
+    void lockAppraisalSheet(Integer appraisalSheetID);
 }

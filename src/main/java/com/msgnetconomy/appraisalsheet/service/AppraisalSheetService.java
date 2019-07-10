@@ -14,4 +14,6 @@ public interface AppraisalSheetService {
     List<AppraisalSheetEntity> findAppDocumentsByUser(String loggedInUser);
 
     List<AppraisalSheetEntity> findAllAppraisalSheet();
+
+    void lockAppraisalSheet(AppraisalSheetEntity appraisalSheetEntity);
 }
