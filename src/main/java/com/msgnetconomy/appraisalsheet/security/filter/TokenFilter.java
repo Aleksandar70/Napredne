@@ -21,7 +21,7 @@ import java.io.IOException;
 @Component
 public class TokenFilter extends OncePerRequestFilter {
 
-    private static final String MSG_HEADER_NAME = "MSG-TOKEN";
+    private static final String HEADER_NAME = "TOKEN";
     private static final String ROUTE_LOGIN = "/login";
 
     @Autowired
@@ -32,7 +32,7 @@ public class TokenFilter extends OncePerRequestFilter {
         final HttpServletRequest httpRequest = request;
 
         if (!(ROUTE_LOGIN).equals(httpRequest.getRequestURI())) {
-            String token = httpRequest.getHeader(MSG_HEADER_NAME);
+            String token = httpRequest.getHeader(HEADER_NAME);
             if (StringUtils.hasText(token)) {
                 try {
                     Authentication authentication = tokenService.parseUserFromToken(token);

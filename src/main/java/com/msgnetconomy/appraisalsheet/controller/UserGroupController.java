@@ -18,6 +18,7 @@ public class UserGroupController {
     private static final String API = "http://localhost:4200";
     private static final String ADD_GET_USER_GROUP = "/add-get-user-group";
     private static final Logger logger = LoggerFactory.getLogger(UserGroupController.class);
+    public static final String EXCEPTION = "An exception occurred!";
 
     @Autowired
     private UserGroupService userGroupService;
@@ -35,7 +36,7 @@ public class UserGroupController {
             userGroupService.addUserGroup(userGroupEntity);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("An exception occurred!", e);
+            logger.error(EXCEPTION, e);
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }

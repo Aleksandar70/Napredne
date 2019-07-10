@@ -5,7 +5,6 @@ import com.msgnetconomy.appraisalsheet.service.AppraisalSheetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +19,7 @@ public class AppraisalSheetController {
     private static final String GET_ALL_APPRAISAL_SHEET = "/get-appraisal-sheet";
     private static final Logger logger = LoggerFactory.getLogger(AppraisalSheetController.class);
     private static final String URL_LOCK_APPRAISAL_SHEET = "/lock-appraisal-sheet";
+    public static final String ERROR_SAVING_APPRAISAL_SHEET = "An exception occurred while saving appraisal sheet!";
 
     @Autowired
     private AppraisalSheetService appraisalSheetService;
@@ -32,7 +32,7 @@ public class AppraisalSheetController {
             response.setStatus(HttpServletResponse.SC_OK);
             return newAppSheet;
         } catch (Exception e) {
-            logger.error("An exception occurred while saving appraisal sheet!", e);
+            logger.error(ERROR_SAVING_APPRAISAL_SHEET, e);
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             return new AppraisalSheetEntity();
         }
