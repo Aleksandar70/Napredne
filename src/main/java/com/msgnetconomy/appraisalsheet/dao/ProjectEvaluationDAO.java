@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public interface AppraisalSheetDAO extends JpaRepository<AppraisalSheetEntity, Integer> {
+public interface ProjectEvaluationDAO extends JpaRepository<AppraisalSheetEntity, Integer> {
 
     @Query("SELECT ash FROM AppraisalSheetEntity ash WHERE ash.employeeName=?1 AND ash.appraisalPeriod=?2")
     AppraisalSheetEntity findByNameAndAppPeriod(String employeeName, String appraisalPeriod);

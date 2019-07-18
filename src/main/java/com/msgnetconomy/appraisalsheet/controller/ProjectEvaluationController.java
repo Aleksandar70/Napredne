@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
-public class AppraisalSheetController {
+public class ProjectEvaluationController {
 
     private static final String API = "http://localhost:4200";
     private static final String ADD_APPRAISAL_SHEET = "/add-appraisal-sheet";
-    private static final String ARCHIVE_PAGE = "/archive-page";
+    private static final String ARCHIVE_PAGE = "/archive";
     private static final String GET_ALL_APPRAISAL_SHEET = "/get-appraisal-sheet";
-    private static final Logger logger = LoggerFactory.getLogger(AppraisalSheetController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProjectEvaluationController.class);
     private static final String URL_LOCK_APPRAISAL_SHEET = "/lock-appraisal-sheet";
     public static final String ERROR_SAVING_APPRAISAL_SHEET = "An exception occurred while saving appraisal sheet!";
 

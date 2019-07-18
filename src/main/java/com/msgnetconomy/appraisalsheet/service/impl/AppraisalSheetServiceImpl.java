@@ -1,6 +1,6 @@
 package com.msgnetconomy.appraisalsheet.service.impl;
 
-import com.msgnetconomy.appraisalsheet.dao.AppraisalSheetDAO;
+import com.msgnetconomy.appraisalsheet.dao.ProjectEvaluationDAO;
 import com.msgnetconomy.appraisalsheet.dao.UserDAO;
 import com.msgnetconomy.appraisalsheet.domain.AppraisalSheetEntity;
 import com.msgnetconomy.appraisalsheet.domain.UserEntity;
@@ -14,7 +14,7 @@ import java.util.*;
 public class AppraisalSheetServiceImpl implements AppraisalSheetService {
 
     @Autowired
-    private AppraisalSheetDAO appraisalSheetDAO;
+    private ProjectEvaluationDAO projectEvaluationDAO;
 
     @Autowired
     private UserDAO userDAO;
@@ -22,11 +22,11 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
     @Override
     public AppraisalSheetEntity saveOrUpdateAppraisalSheet(AppraisalSheetEntity appraisalSheetEntity) {
         int appraisalSheetID = appraisalSheetEntity.getAppraisalSheetID();
-        boolean existsById = appraisalSheetDAO.existsById(appraisalSheetID);
-        AppraisalSheetEntity byNameAndAppPeriod = appraisalSheetDAO.findByNameAndAppPeriod(appraisalSheetEntity.getEmployeeName(), appraisalSheetEntity.getAppraisalPeriod());
+        boolean existsById = projectEvaluationDAO.existsById(appraisalSheetID);
+        AppraisalSheetEntity byNameAndAppPeriod = projectEvaluationDAO.findByNameAndAppPeriod(appraisalSheetEntity.getEmployeeName(), appraisalSheetEntity.getAppraisalPeriod());
         AppraisalSheetEntity oldSheet = new AppraisalSheetEntity();
         if (existsById) {
-            oldSheet = (appraisalSheetDAO.findById(appraisalSheetID)).get();
+            oldSheet = (projectEvaluationDAO.findById(appraisalSheetID)).get();
         }
         if (Objects.nonNull(byNameAndAppPeriod)) {
             oldSheet = byNameAndAppPeriod;
@@ -41,8 +41,8 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
             if (Objects.nonNull(appraisalSheetEntity.getEmployeeName())) {
                 oldSheet.setEmployeeName(appraisalSheetEntity.getEmployeeName());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getDivision())) {
-                oldSheet.setDivision(appraisalSheetEntity.getDivision());
+            if (Objects.nonNull(appraisalSheetEntity.getProjectName())) {
+                oldSheet.setProjectName(appraisalSheetEntity.getProjectName());
             }
             if (Objects.nonNull(appraisalSheetEntity.getCareerLevel())) {
                 oldSheet.setCareerLevel(appraisalSheetEntity.getCareerLevel());
@@ -53,61 +53,61 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
             if (Objects.nonNull(appraisalSheetEntity.getManager())) {
                 oldSheet.setManager(appraisalSheetEntity.getManager());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getTasksBackdated())) {
-                oldSheet.setTasksBackdated(appraisalSheetEntity.getTasksBackdated());
+            if (Objects.nonNull(appraisalSheetEntity.getFinancialSituation())) {
+                oldSheet.setFinancialSituation(appraisalSheetEntity.getFinancialSituation());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getTeamLeadFeedback())) {
-                oldSheet.setTeamLeadFeedback(appraisalSheetEntity.getTeamLeadFeedback());
+            if (Objects.nonNull(appraisalSheetEntity.getTasksDifficult())) {
+                oldSheet.setTasksDifficult(appraisalSheetEntity.getTasksDifficult());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getCompanyFeedback())) {
-                oldSheet.setCompanyFeedback(appraisalSheetEntity.getCompanyFeedback());
+            if (Objects.nonNull(appraisalSheetEntity.getScope())) {
+                oldSheet.setScope(appraisalSheetEntity.getScope());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getTargetsBackdated())) {
-                oldSheet.setTargetsBackdated(appraisalSheetEntity.getTargetsBackdated());
+            if (Objects.nonNull(appraisalSheetEntity.getFunctionalSpecification())) {
+                oldSheet.setFunctionalSpecification(appraisalSheetEntity.getFunctionalSpecification());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getRoleRequirements())) {
-                oldSheet.setRoleRequirements(appraisalSheetEntity.getRoleRequirements());
+            if (Objects.nonNull(appraisalSheetEntity.getHardToFollow())) {
+                oldSheet.setHardToFollow(appraisalSheetEntity.getHardToFollow());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getSelfCompetence())) {
-                oldSheet.setSelfCompetence(appraisalSheetEntity.getSelfCompetence());
+            if (Objects.nonNull(appraisalSheetEntity.getIndependent())) {
+                oldSheet.setIndependent(appraisalSheetEntity.getIndependent());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getSocialCompetence())) {
-                oldSheet.setSocialCompetence(appraisalSheetEntity.getSocialCompetence());
+            if (Objects.nonNull(appraisalSheetEntity.getSuggestions())) {
+                oldSheet.setSuggestions(appraisalSheetEntity.getSuggestions());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getMethodicalCompetence())) {
-                oldSheet.setMethodicalCompetence(appraisalSheetEntity.getMethodicalCompetence());
+            if (Objects.nonNull(appraisalSheetEntity.getProjectInFiveMonths())) {
+                oldSheet.setProjectInFiveMonths(appraisalSheetEntity.getProjectInFiveMonths());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getRoleRequirementsGoals())) {
-                oldSheet.setRoleRequirementsGoals(appraisalSheetEntity.getRoleRequirementsGoals());
+            if (Objects.nonNull(appraisalSheetEntity.getObstacles())) {
+                oldSheet.setObstacles(appraisalSheetEntity.getObstacles());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getSelfCompetenceGoals())) {
-                oldSheet.setSelfCompetenceGoals(appraisalSheetEntity.getSelfCompetenceGoals());
+            if (Objects.nonNull(appraisalSheetEntity.getBest_sides_highlights())) {
+                oldSheet.setBest_sides_highlights(appraisalSheetEntity.getBest_sides_highlights());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getCompanyOrientedGoals())) {
-                oldSheet.setCompanyOrientedGoals(appraisalSheetEntity.getCompanyOrientedGoals());
+            if (Objects.nonNull(appraisalSheetEntity.getHumanResources())) {
+                oldSheet.setHumanResources(appraisalSheetEntity.getHumanResources());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getEconomicGoal())) {
-                oldSheet.setEconomicGoal(appraisalSheetEntity.getEconomicGoal());
+            if (Objects.nonNull(appraisalSheetEntity.getPeopleSatisfaction())) {
+                oldSheet.setPeopleSatisfaction(appraisalSheetEntity.getPeopleSatisfaction());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getDevelopmentObjectives())) {
-                oldSheet.setDevelopmentObjectives(appraisalSheetEntity.getDevelopmentObjectives());
+            if (Objects.nonNull(appraisalSheetEntity.getFeedbackFromClient())) {
+                oldSheet.setFeedbackFromClient(appraisalSheetEntity.getFeedbackFromClient());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getDevelopmentPotential())) {
-                oldSheet.setDevelopmentPotential(appraisalSheetEntity.getDevelopmentPotential());
+            if (Objects.nonNull(appraisalSheetEntity.getImprovingProcess())) {
+                oldSheet.setImprovingProcess(appraisalSheetEntity.getImprovingProcess());
             }
-            if (Objects.nonNull(appraisalSheetEntity.getEmployeeExpectations())) {
-                oldSheet.setEmployeeExpectations(appraisalSheetEntity.getEmployeeExpectations());
+            if (Objects.nonNull(appraisalSheetEntity.getTime())) {
+                oldSheet.setTime(appraisalSheetEntity.getTime());
             }
             oldSheet.setLocked(appraisalSheetEntity.isLocked());
             if (Objects.isNull(appraisalSheetEntity.getUser())) {
                 oldSheet.setUser(findByFirstNameAndLastName(appraisalSheetEntity));
             }
-            return appraisalSheetDAO.save(oldSheet);
+            return projectEvaluationDAO.save(oldSheet);
         } else {
             if (Objects.isNull(appraisalSheetEntity.getUser())) {
                 appraisalSheetEntity.setUser(findByFirstNameAndLastName(appraisalSheetEntity));
             }
-            return appraisalSheetDAO.save(appraisalSheetEntity);
+            return projectEvaluationDAO.save(appraisalSheetEntity);
         }
 
     }
@@ -116,22 +116,23 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
     public List<AppraisalSheetEntity> findAppDocumentsByUser(String userName) {
         List<AppraisalSheetEntity> appraisalDocuments = new ArrayList<>();
         List<AppraisalSheetEntity> lockedDocuments = new ArrayList<>();
-        int userId = appraisalSheetDAO.getUserIdByUsername(userName);
-        int userGroupId = appraisalSheetDAO.getUserGroupIdByUsername(userName);
+        int userId = projectEvaluationDAO.getUserIdByUsername(userName);
+        int userGroupId = projectEvaluationDAO.getUserGroupIdByUsername(userName);
         if (userGroupId == 1) {
-            appraisalDocuments = appraisalSheetDAO.findAppDocumentsByUserId(userId);
+            appraisalDocuments = projectEvaluationDAO.findAppDocumentsByUserId(userId);
         }
         if (userGroupId == 2) {
-            int managerOfTheUser = appraisalSheetDAO.getUserManagerIdByUsername(userName);
-            List<UserEntity> usersOfTheSameManager = appraisalSheetDAO.getAllUsersOfTheSameManager(managerOfTheUser);
+            int managerOfTheUser = projectEvaluationDAO.getUserManagerIdByUsername(userName);
+            appraisalDocuments = projectEvaluationDAO.findAppDocumentsByUserId(userId);
+            List<UserEntity> usersOfTheSameManager = projectEvaluationDAO.getAllUsersOfTheSameManager(managerOfTheUser);
             Map<Integer, List<AppraisalSheetEntity>> usersDocuments = new HashMap<>();
-            usersOfTheSameManager.stream().forEach(user -> usersDocuments.put(user.getUserId(), appraisalSheetDAO.getLockedAppDocumentsByUserId(user.getUserId())));
+            usersOfTheSameManager.stream().forEach(user -> usersDocuments.put(user.getUserId(), projectEvaluationDAO.getLockedAppDocumentsByUserId(user.getUserId())));
             for (Map.Entry<Integer, List<AppraisalSheetEntity>> documentsOfEachUser : usersDocuments.entrySet()) {
                 appraisalDocuments.addAll(documentsOfEachUser.getValue());
             }
         }
         if (userGroupId == 3) {
-            appraisalDocuments = appraisalSheetDAO.findAll();
+            appraisalDocuments = projectEvaluationDAO.findAll();
             appraisalDocuments.forEach(value -> {
                 if (value.isLocked()) {
                     lockedDocuments.add(value);
@@ -144,12 +145,12 @@ public class AppraisalSheetServiceImpl implements AppraisalSheetService {
 
     @Override
     public List<AppraisalSheetEntity> findAllAppraisalSheet() {
-        return appraisalSheetDAO.findAll();
+        return projectEvaluationDAO.findAll();
     }
 
     @Override
     public void lockAppraisalSheet(AppraisalSheetEntity appraisalSheetEntity) {
-        appraisalSheetDAO.lockAppraisalSheet(appraisalSheetEntity.getAppraisalSheetID());
+        projectEvaluationDAO.lockAppraisalSheet(appraisalSheetEntity.getAppraisalSheetID());
     }
 
     @Override

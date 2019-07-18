@@ -19,25 +19,25 @@ public class AppraisalSheetEntity {
     private UserEntity user;
     private LocalDate date;
     private String employeeName;
-    private String division;
+    private String projectName;
     private String careerLevel;
     private String appraisalPeriod;
     private String manager;
-    private String tasksBackdated;
-    private String teamLeadFeedback;
-    private String companyFeedback;
-    private String targetsBackdated;
-    private String roleRequirements;
-    private String selfCompetence;
-    private String socialCompetence;
-    private String methodicalCompetence;
-    private String roleRequirementsGoals;
-    private String selfCompetenceGoals;
-    private String companyOrientedGoals;
-    private String economicGoal;
-    private String developmentObjectives;
-    private String developmentPotential;
-    private String employeeExpectations;
+    private String financialSituation;
+    private String tasksDifficult;
+    private String scope;
+    private String functionalSpecification;
+    private String hardToFollow;
+    private String independent;
+    private String suggestions;
+    private String projectInFiveMonths;
+    private String obstacles;
+    private String best_sides_highlights;
+    private String humanResources;
+    private String peopleSatisfaction;
+    private String feedbackFromClient;
+    private String improvingProcess;
+    private String time;
     private boolean locked;
 
     @Id
@@ -82,13 +82,13 @@ public class AppraisalSheetEntity {
     }
 
     @Basic
-    @Column(name = "division")
-    public String getDivision() {
-        return division;
+    @Column(name = "project_name")
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setDivision(String division) {
-        this.division = division;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     @Basic
@@ -122,153 +122,153 @@ public class AppraisalSheetEntity {
     }
 
     @Basic
-    @Column(name = "tasks_backdated")
-    public String getTasksBackdated() {
-        return tasksBackdated;
+    @Column(name = "financial_situation")
+    public String getFinancialSituation() {
+        return financialSituation;
     }
 
-    public void setTasksBackdated(String tasksBackdated) {
-        this.tasksBackdated = tasksBackdated;
-    }
-
-    @Basic
-    @Column(name = "team_lead_feedback")
-    public String getTeamLeadFeedback() {
-        return teamLeadFeedback;
-    }
-
-    public void setTeamLeadFeedback(String teamLeadFeedback) {
-        this.teamLeadFeedback = teamLeadFeedback;
+    public void setFinancialSituation(String financialSituation) {
+        this.financialSituation = financialSituation;
     }
 
     @Basic
-    @Column(name = "company_feedback")
-    public String getCompanyFeedback() {
-        return companyFeedback;
+    @Column(name = "tasks_difficult")
+    public String getTasksDifficult() {
+        return tasksDifficult;
     }
 
-    public void setCompanyFeedback(String companyFeedback) {
-        this.companyFeedback = companyFeedback;
-    }
-
-    @Basic
-    @Column(name = "targets_backdated")
-    public String getTargetsBackdated() {
-        return targetsBackdated;
-    }
-
-    public void setTargetsBackdated(String targetsBackdated) {
-        this.targetsBackdated = targetsBackdated;
+    public void setTasksDifficult(String tasksDifficult) {
+        this.tasksDifficult = tasksDifficult;
     }
 
     @Basic
-    @Column(name = "role_requirements")
-    public String getRoleRequirements() {
-        return roleRequirements;
+    @Column(name = "scope")
+    public String getScope() {
+        return scope;
     }
 
-    public void setRoleRequirements(String roleRequirements) {
-        this.roleRequirements = roleRequirements;
-    }
-
-    @Basic
-    @Column(name = "self_competence")
-    public String getSelfCompetence() {
-        return selfCompetence;
-    }
-
-    public void setSelfCompetence(String selfCompetence) {
-        this.selfCompetence = selfCompetence;
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 
     @Basic
-    @Column(name = "social_competence")
-    public String getSocialCompetence() {
-        return socialCompetence;
+    @Column(name = "functional_specification")
+    public String getFunctionalSpecification() {
+        return functionalSpecification;
     }
 
-    public void setSocialCompetence(String socialCompetence) {
-        this.socialCompetence = socialCompetence;
-    }
-
-    @Basic
-    @Column(name = "methodical_competence")
-    public String getMethodicalCompetence() {
-        return methodicalCompetence;
-    }
-
-    public void setMethodicalCompetence(String methodicalCompetence) {
-        this.methodicalCompetence = methodicalCompetence;
+    public void setFunctionalSpecification(String functionalSpecification) {
+        this.functionalSpecification = functionalSpecification;
     }
 
     @Basic
-    @Column(name = "role_requirements_goals")
-    public String getRoleRequirementsGoals() {
-        return roleRequirementsGoals;
+    @Column(name = "hard_to_follow")
+    public String getHardToFollow() {
+        return hardToFollow;
     }
 
-    public void setRoleRequirementsGoals(String roleRequirementsGoals) {
-        this.roleRequirementsGoals = roleRequirementsGoals;
-    }
-
-    @Basic
-    @Column(name = "self_competence_goals")
-    public String getSelfCompetenceGoals() {
-        return selfCompetenceGoals;
-    }
-
-    public void setSelfCompetenceGoals(String selfCompetenceGoals) {
-        this.selfCompetenceGoals = selfCompetenceGoals;
+    public void setHardToFollow(String hardToFollow) {
+        this.hardToFollow = hardToFollow;
     }
 
     @Basic
-    @Column(name = "company_oriented_goals")
-    public String getCompanyOrientedGoals() {
-        return companyOrientedGoals;
+    @Column(name = "independent")
+    public String getIndependent() {
+        return independent;
     }
 
-    public void setCompanyOrientedGoals(String companyOrientedGoals) {
-        this.companyOrientedGoals = companyOrientedGoals;
-    }
-
-    @Basic
-    @Column(name = "economic_goal")
-    public String getEconomicGoal() {
-        return economicGoal;
-    }
-
-    public void setEconomicGoal(String economicGoal) {
-        this.economicGoal = economicGoal;
+    public void setIndependent(String independent) {
+        this.independent = independent;
     }
 
     @Basic
-    @Column(name = "development_objectives")
-    public String getDevelopmentObjectives() {
-        return developmentObjectives;
+    @Column(name = "suggestions")
+    public String getSuggestions() {
+        return suggestions;
     }
 
-    public void setDevelopmentObjectives(String developmentObjectives) {
-        this.developmentObjectives = developmentObjectives;
-    }
-
-    @Basic
-    @Column(name = "development_potential")
-    public String getDevelopmentPotential() {
-        return developmentPotential;
-    }
-
-    public void setDevelopmentPotential(String developmentPotential) {
-        this.developmentPotential = developmentPotential;
+    public void setSuggestions(String suggestions) {
+        this.suggestions = suggestions;
     }
 
     @Basic
-    @Column(name = "employee_expectations")
-    public String getEmployeeExpectations() {
-        return employeeExpectations;
+    @Column(name = "project_in_five_months")
+    public String getProjectInFiveMonths() {
+        return projectInFiveMonths;
     }
 
-    public void setEmployeeExpectations(String employeeExpectations) {
-        this.employeeExpectations = employeeExpectations;
+    public void setProjectInFiveMonths(String projectInFiveMonths) {
+        this.projectInFiveMonths = projectInFiveMonths;
+    }
+
+    @Basic
+    @Column(name = "obstacles")
+    public String getObstacles() {
+        return obstacles;
+    }
+
+    public void setObstacles(String obstacles) {
+        this.obstacles = obstacles;
+    }
+
+    @Basic
+    @Column(name = "best_sides_highlights")
+    public String getBest_sides_highlights() {
+        return best_sides_highlights;
+    }
+
+    public void setBest_sides_highlights(String best_sides_highlights) {
+        this.best_sides_highlights = best_sides_highlights;
+    }
+
+    @Basic
+    @Column(name = "human_resources")
+    public String getHumanResources() {
+        return humanResources;
+    }
+
+    public void setHumanResources(String humanResources) {
+        this.humanResources = humanResources;
+    }
+
+    @Basic
+    @Column(name = "people_satisfaction")
+    public String getPeopleSatisfaction() {
+        return peopleSatisfaction;
+    }
+
+    public void setPeopleSatisfaction(String peopleSatisfaction) {
+        this.peopleSatisfaction = peopleSatisfaction;
+    }
+
+    @Basic
+    @Column(name = "feedback_from_client")
+    public String getFeedbackFromClient() {
+        return feedbackFromClient;
+    }
+
+    public void setFeedbackFromClient(String feedbackFromClient) {
+        this.feedbackFromClient = feedbackFromClient;
+    }
+
+    @Basic
+    @Column(name = "improving_process")
+    public String getImprovingProcess() {
+        return improvingProcess;
+    }
+
+    public void setImprovingProcess(String improvingProcess) {
+        this.improvingProcess = improvingProcess;
+    }
+
+    @Basic
+    @Column(name = "time")
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     @Basic
