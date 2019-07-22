@@ -1,6 +1,6 @@
 package com.msgnetconomy.appraisalsheet.security;
 
-import com.msgnetconomy.appraisalsheet.domain.UserEntity;
+import com.msgnetconomy.appraisalsheet.dto.UserDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -9,12 +9,12 @@ import java.util.List;
 
 public class TokenUser implements Authentication {
 
-    private final UserEntity user;
+    private final UserDto user;
     private boolean isAuth;
     private String token;
     private List<GrantedAuthority> grantedAuthorities;
 
-    public TokenUser(UserEntity user, List<GrantedAuthority> grantedAuthorities, String token) {
+    public TokenUser(UserDto user, List<GrantedAuthority> grantedAuthorities, String token) {
         super();
         this.user = user;
         this.grantedAuthorities = grantedAuthorities;
@@ -42,7 +42,7 @@ public class TokenUser implements Authentication {
     }
 
     @Override
-    public void setAuthenticated(boolean bln){
+    public void setAuthenticated(boolean bln) {
         this.isAuth = bln;
     }
 

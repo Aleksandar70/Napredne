@@ -1,12 +1,12 @@
 package com.msgnetconomy.appraisalsheet.service;
 
-import com.msgnetconomy.appraisalsheet.domain.UserGroupEntity;
+import com.msgnetconomy.appraisalsheet.dto.UserGroupDto;
 
 import java.util.List;
 
 public interface UserGroupService {
 
-    List<UserGroupEntity> getAllUserGroups();
+    List<UserGroupDto> getAllUserGroups();
 
-    void addUserGroup(UserGroupEntity userGroupEntity);
+    void addUserGroup(UserGroupDto userGroupDto);
 }

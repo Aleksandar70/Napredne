@@ -1,7 +1,7 @@
 package com.msgnetconomy.appraisalsheet.controller;
 
-import com.msgnetconomy.appraisalsheet.domain.AppraisalSheetEntity;
-import com.msgnetconomy.appraisalsheet.service.AppraisalSheetService;
+import com.msgnetconomy.appraisalsheet.dto.ProjectEvaluationDto;
+import com.msgnetconomy.appraisalsheet.service.ProjectEvaluationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,37 +22,37 @@ public class ProjectEvaluationController {
     public static final String ERROR_SAVING_APPRAISAL_SHEET = "An exception occurred while saving appraisal sheet!";
 
     @Autowired
-    private AppraisalSheetService appraisalSheetService;
+    private ProjectEvaluationService projectEvaluationService;
 
     @PostMapping(value = ADD_APPRAISAL_SHEET)
     @CrossOrigin(origins = API)
-    AppraisalSheetEntity addAppraisalSheet(@RequestBody AppraisalSheetEntity appraisalSheetEntity, HttpServletResponse response) {
+    ProjectEvaluationDto addAppraisalSheet(@RequestBody ProjectEvaluationDto projectEvaluationDto, HttpServletResponse response) {
         try {
-            AppraisalSheetEntity newAppSheet = appraisalSheetService.saveOrUpdateAppraisalSheet(appraisalSheetEntity);
+            ProjectEvaluationDto newAppSheet = projectEvaluationService.saveOrUpdateProjectEvaluation(projectEvaluationDto);
             response.setStatus(HttpServletResponse.SC_OK);
             return newAppSheet;
         } catch (Exception e) {
             logger.error(ERROR_SAVING_APPRAISAL_SHEET, e);
             response.setStatus(HttpServletResponse.SC_CONFLICT);
-            return new AppraisalSheetEntity();
+            return new ProjectEvaluationDto();
         }
     }
 
     @GetMapping(value = ARCHIVE_PAGE)
     @CrossOrigin(origins = API)
-    List<AppraisalSheetEntity> findAppDocumentsByUser(@RequestParam String userName) {
-        return appraisalSheetService.findAppDocumentsByUser(userName);
+    List<ProjectEvaluationDto> findAppDocumentsByUser(@RequestParam String userName) {
+        return projectEvaluationService.findAppDocumentsByUser(userName);
     }
 
     @GetMapping(value = GET_ALL_APPRAISAL_SHEET)
     @CrossOrigin(origins = API)
-    List<AppraisalSheetEntity> findAllAppraisalSheet() {
-        return appraisalSheetService.findAllAppraisalSheet();
+    List<ProjectEvaluationDto> findAllAppraisalSheet() {
+        return projectEvaluationService.findAllAppraisalSheet();
     }
 
     @PostMapping(value = URL_LOCK_APPRAISAL_SHEET)
     @CrossOrigin(origins = API)
-    void lockAppraisalSheet(@RequestBody AppraisalSheetEntity appraisalSheetEntity) {
-        appraisalSheetService.lockAppraisalSheet(appraisalSheetEntity);
+    void lockAppraisalSheet(@RequestBody ProjectEvaluationDto projectEvaluationDto) {
+        projectEvaluationService.lockAppraisalSheet(projectEvaluationDto);
     }
 }

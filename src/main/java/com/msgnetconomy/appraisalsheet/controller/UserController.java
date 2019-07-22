@@ -2,7 +2,7 @@ package com.msgnetconomy.appraisalsheet.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.msgnetconomy.appraisalsheet.domain.UserEntity;
+import com.msgnetconomy.appraisalsheet.dto.UserDto;
 import com.msgnetconomy.appraisalsheet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -31,24 +31,24 @@ public class UserController {
 
     @RequestMapping(value = LOGIN, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @CrossOrigin(origins = API)
-    public ResponseEntity<String> login(@RequestBody UserEntity user) {
+    public ResponseEntity<String> login(@RequestBody UserDto userDto) {
         JsonObject jsonObject = new JsonObject();
-        String token = userService.authenticate(user);
+        String token = userService.authenticate(userDto);
         if (UNAUTHORIZED.equals(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(UNAUTHORIZED);
         }
         jsonObject.addProperty(TOKEN, token);
-        jsonObject.add(USER, new Gson().toJsonTree(getCurrentUser(user)));
+        jsonObject.add(USER, new Gson().toJsonTree(getCurrentUser(userDto)));
         return ResponseEntity.status(HttpStatus.OK).body(jsonObject.toString());
     }
 
-    public UserEntity getCurrentUser(@RequestBody UserEntity user) {
-        return userService.getCurrentUser(user);
+    public UserDto getCurrentUser(@RequestBody UserDto userDto) {
+        return userService.getCurrentUser(userDto);
     }
 
     @RequestMapping(value = ADD_NEW_USER, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
     @CrossOrigin(origins = API)
-    public ResponseEntity<String> saveUser(@RequestBody UserEntity user) {
+    public ResponseEntity<String> saveUser(@RequestBody UserDto user) {
         try {
             userService.saveUser(user);
         } catch (DataAccessException ex) {
@@ -59,19 +59,19 @@ public class UserController {
 
     @GetMapping(value = GET_USER_BY_USER_NAME)
     @CrossOrigin(origins = API)
-    public UserEntity getCurrentUserByUserName(@RequestParam String userName) {
+    public UserDto getCurrentUserByUserName(@RequestParam String userName) {
         return userService.findByUsername(userName);
     }
 
     @GetMapping(value = GET_ALL_USERS)
     @CrossOrigin(origins = API)
-    public List<UserEntity> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return userService.findAllUsers();
     }
 
     @DeleteMapping(path = DELETE_USER_USERNAME)
     @CrossOrigin(origins = API)
-    public ResponseEntity<UserEntity> deleteUser(@PathVariable String username) {
+    public ResponseEntity<UserDto> deleteUser(@PathVariable String username) {
         userService.removeUser(username);
         return new ResponseEntity<>(HttpStatus.OK);
     }

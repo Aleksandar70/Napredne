@@ -1,6 +1,6 @@
 package com.msgnetconomy.appraisalsheet.controller;
 
-import com.msgnetconomy.appraisalsheet.domain.UserGroupEntity;
+import com.msgnetconomy.appraisalsheet.dto.UserGroupDto;
 import com.msgnetconomy.appraisalsheet.service.UserGroupService;
 import com.sun.net.httpserver.Authenticator;
 import org.slf4j.Logger;
@@ -25,21 +25,19 @@ public class UserGroupController {
 
     @GetMapping(value = ADD_GET_USER_GROUP)
     @CrossOrigin(origins = API)
-    public List<UserGroupEntity> getAllUserGroups() {
+    public List<UserGroupDto> getAllUserGroups() {
         return userGroupService.getAllUserGroups();
     }
 
     @PostMapping(value = ADD_GET_USER_GROUP)
     @CrossOrigin(origins = API)
-    ResponseEntity<Authenticator.Success> addUserGroup(@RequestBody UserGroupEntity userGroupEntity) {
+    ResponseEntity<Authenticator.Success> addUserGroup(@RequestBody UserGroupDto userGroupDto) {
         try {
-            userGroupService.addUserGroup(userGroupEntity);
+            userGroupService.addUserGroup(userGroupDto);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             logger.error(EXCEPTION, e);
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
-
-
 }

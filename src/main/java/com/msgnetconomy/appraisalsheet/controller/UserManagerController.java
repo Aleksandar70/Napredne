@@ -1,6 +1,6 @@
 package com.msgnetconomy.appraisalsheet.controller;
 
-import com.msgnetconomy.appraisalsheet.domain.UserManagerEntity;
+import com.msgnetconomy.appraisalsheet.dto.UserManagerDto;
 import com.msgnetconomy.appraisalsheet.service.UserManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +19,7 @@ public class UserManagerController {
 
     @GetMapping(value = GET_USER_MANAGERS)
     @CrossOrigin(origins = API)
-    public List<UserManagerEntity> getAllUserManagers() {
+    public List<UserManagerDto> getAllUserManagers() {
         return userManagerService.getAllUserManagers();
     }
 }

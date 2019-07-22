@@ -1,32 +1,20 @@
 package com.msgnetconomy.appraisalsheet.dto;
 
+import lombok.Data;
+
+@Data
 public class UserManagerDto {
 
     private int userManagerId;
     private String name;
     private String managerUsername;
 
-    public int getUserManagerId() {
-        return userManagerId;
+    public UserManagerDto() {
     }
 
-    public void setUserManagerId(int userManagerId) {
+    public UserManagerDto(int userManagerId, String name, String managerUsername) {
         this.userManagerId = userManagerId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public String getManagerUsername() {
-        return managerUsername;
-    }
-
-    public void setManagerUsername(String managerUsername) {
         this.managerUsername = managerUsername;
     }
 }

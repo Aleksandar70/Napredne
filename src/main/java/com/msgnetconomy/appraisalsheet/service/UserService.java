@@ -1,21 +1,20 @@
 package com.msgnetconomy.appraisalsheet.service;
 
-import com.msgnetconomy.appraisalsheet.domain.UserEntity;
 import com.msgnetconomy.appraisalsheet.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
 
-    UserEntity findByUsername(String username);
+    UserDto findByUsername(String username);
 
-    String authenticate(UserEntity user);
+    String authenticate(UserDto user);
 
-    UserEntity getCurrentUser(UserEntity user);
+    UserDto getCurrentUser(UserDto user);
 
-    UserEntity saveUser(UserEntity user);
+    UserDto saveUser(UserDto user);
 
-    List<UserEntity> findAllUsers();
+    List<UserDto> findAllUsers();
 
     void removeUser(String username);
 }

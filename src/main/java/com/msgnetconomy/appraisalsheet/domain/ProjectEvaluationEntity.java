@@ -9,15 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
-@Table(name = "appraisal_sheet", schema = "appraisal-sheet-mysql")
-public class AppraisalSheetEntity {
+@Table(name = "project_evaluation", schema = "appraisal-sheet-mysql")
+public class ProjectEvaluationEntity {
 
-    private int appraisalSheetID;
+    private int projectEvaluationID;
     private UserEntity user;
-    private LocalDate date;
+    private Date date;
     private String employeeName;
     private String projectName;
     private String careerLevel;
@@ -41,14 +41,14 @@ public class AppraisalSheetEntity {
     private boolean locked;
 
     @Id
-    @Column(name = "appraisal_sheet_id")
+    @Column(name = "project_evaluation_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getAppraisalSheetID() {
-        return appraisalSheetID;
+    public int getProjectEvaluationID() {
+        return projectEvaluationID;
     }
 
-    public void setAppraisalSheetID(int appraisalSheetID) {
-        this.appraisalSheetID = appraisalSheetID;
+    public void setProjectEvaluationID(int projectEvaluationID) {
+        this.projectEvaluationID = projectEvaluationID;
     }
 
     @ManyToOne
@@ -63,11 +63,11 @@ public class AppraisalSheetEntity {
 
     @Basic
     @Column(name = "date")
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

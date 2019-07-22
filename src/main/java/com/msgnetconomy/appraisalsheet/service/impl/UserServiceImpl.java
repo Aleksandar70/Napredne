@@ -3,16 +3,17 @@ package com.msgnetconomy.appraisalsheet.service.impl;
 import com.msgnetconomy.appraisalsheet.dao.UserDAO;
 import com.msgnetconomy.appraisalsheet.domain.UserEntity;
 import com.msgnetconomy.appraisalsheet.dto.UserDto;
-import com.msgnetconomy.appraisalsheet.mapper.UserMapper;
 import com.msgnetconomy.appraisalsheet.service.UserService;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,17 +24,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
-//    @Autowired
-//    private UserMapper userMapper;
+    @Autowired
+    private DozerBeanMapper mapper;
 
     @Override
-    public UserEntity findByUsername(String username) {
-        return userDAO.findByUsername(username);
+    public UserDto findByUsername(String username) {
+        return mapper.map(userDAO.findByUsername(username), UserDto.class);
     }
 
     @Override
-    public String authenticate(UserEntity user) {
-        UserEntity userDB = userDAO.login(user.getUsername(), user.getPassword());
+    public String authenticate(UserDto userDto) {
+        UserEntity userEntity = mapper.map(userDto, UserEntity.class);
+        UserDto userDB = mapper.map(userDAO.login(userEntity.getUsername(), userEntity.getPassword()), UserDto.class);
         if (Objects.isNull(userDB)) {
             return UNAUTHORIZED;
         }
@@ -43,26 +45,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity getCurrentUser(UserEntity user) {
-        return userDAO.login(user.getUsername(), user.getPassword());
-//        return userMapper.userToUserDto(userEntity);
+    public UserDto getCurrentUser(UserDto userDto) {
+        return mapper.map(userDAO.login(userDto.getUsername(), userDto.getPassword()), UserDto.class);
     }
 
     @Override
-    public UserEntity saveUser(UserEntity user) {
-        return userDAO.save(user);
+    public UserDto saveUser(UserDto userDto) {
+        UserEntity userEntity = mapper.map(userDto, UserEntity.class);
+        return mapper.map(userDAO.save(userEntity), UserDto.class);
     }
 
     @Override
-    public List<UserEntity> findAllUsers() {
-        return userDAO.findAll();
+    public List<UserDto> findAllUsers() {
+        return userDAO.findAll()
+                .stream()
+                .map(entity -> mapper.map(entity, UserDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public void removeUser(String username) {
-        UserEntity userEntity = userDAO.findByUsername(username);
-        if (Objects.nonNull(userEntity)) {
-            userDAO.delete(userEntity);
+        UserDto userDto = mapper.map(userDAO.findByUsername(username), UserDto.class);
+        if (Objects.nonNull(userDto)) {
+            userDAO.delete(mapper.map(userDto, UserEntity.class));
         } else {
             throw new EntityNotFoundException("User does not exist");
         }

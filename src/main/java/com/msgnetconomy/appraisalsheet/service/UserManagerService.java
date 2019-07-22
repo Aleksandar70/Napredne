@@ -1,9 +1,9 @@
 package com.msgnetconomy.appraisalsheet.service;
 
-import com.msgnetconomy.appraisalsheet.domain.UserManagerEntity;
+import com.msgnetconomy.appraisalsheet.dto.UserManagerDto;
 
 import java.util.List;
 
 public interface UserManagerService {
-    List<UserManagerEntity> getAllUserManagers();
+    List<UserManagerDto> getAllUserManagers();
 }
