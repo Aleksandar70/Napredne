@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 public class UserManagerController {
+
     private static final String API = "http://localhost:4200";
     private static final String GET_USER_MANAGERS = "/get-user-managers";
 

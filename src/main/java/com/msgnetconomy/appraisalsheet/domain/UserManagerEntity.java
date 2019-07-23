@@ -16,10 +16,6 @@ public class UserManagerEntity {
         return userManagerId;
     }
 
-    public void setUserManagerId(Integer userManagerId) {
-        this.userManagerId = userManagerId;
-    }
-
     public void setUserManagerId(int userManagerId) {
         this.userManagerId = userManagerId;
     }
