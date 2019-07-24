@@ -6,12 +6,11 @@ import com.msgnetconomy.appraisalsheet.dto.UserDto;
 import com.msgnetconomy.appraisalsheet.service.UserService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.dozer.DozerBeanMapper;
+import org.dozer.MappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private static final String COLON = ":";
-    private static final String UNAUTHORIZED = "unauthorized";
 
     @Autowired
     private UserDAO userDAO;
@@ -33,12 +31,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String authenticate(UserDto userDto) {
+    public String authenticate(UserDto userDto) throws MappingException {
         UserEntity userEntity = mapper.map(userDto, UserEntity.class);
         UserDto userDB = mapper.map(userDAO.login(userEntity.getUsername(), userEntity.getPassword()), UserDto.class);
-        if (Objects.isNull(userDB)) {
-            return UNAUTHORIZED;
-        }
         StringBuilder token = new StringBuilder();
         token.append(userDB.getUsername()).append(COLON).append(userDB.getFirstName());
         return new String(Base64.encodeBase64(token.toString().getBytes()));
@@ -64,12 +59,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void removeUser(String username) {
+    public void removeUser(String username) throws MappingException {
         UserDto userDto = mapper.map(userDAO.findByUsername(username), UserDto.class);
-        if (Objects.nonNull(userDto)) {
-            userDAO.delete(mapper.map(userDto, UserEntity.class));
-        } else {
-            throw new EntityNotFoundException("User does not exist");
-        }
+        userDAO.delete(mapper.map(userDto, UserEntity.class));
     }
 }

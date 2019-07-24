@@ -5,6 +5,7 @@ import com.msgnetconomy.appraisalsheet.domain.UserGroupEntity;
 import com.msgnetconomy.appraisalsheet.dto.UserGroupDto;
 import com.msgnetconomy.appraisalsheet.service.UserGroupService;
 import org.dozer.DozerBeanMapper;
+import org.dozer.MappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class UserGroupServiceImpl implements UserGroupService {
     }
 
     @Override
-    public void addUserGroup(UserGroupDto userGroupDto) {
+    public void addUserGroup(UserGroupDto userGroupDto) throws MappingException {
         userGroupDAO.save(mapper.map(userGroupDto, UserGroupEntity.class));
     }
 }

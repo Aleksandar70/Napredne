@@ -33,84 +33,14 @@ public class ProjectEvaluationServiceImpl implements ProjectEvaluationService {
         boolean existsById = projectEvaluationDAO.existsById(projectEvaluationID);
         ProjectEvaluationEntity byNameAndAppPeriod = projectEvaluationDAO.findByNameAndAppPeriod(projectEvaluation.getEmployeeName(),
                 projectEvaluation.getAppraisalPeriod());
-        ProjectEvaluationDto oldSheet = new ProjectEvaluationDto();
+        ProjectEvaluationDto oldSheet = null;
         if (existsById) {
             oldSheet = mapper.map((projectEvaluationDAO.findById(projectEvaluationID)).get(), ProjectEvaluationDto.class);
-        }
-        if (Objects.nonNull(byNameAndAppPeriod)) {
+        } else if (Objects.nonNull(byNameAndAppPeriod)) {
             oldSheet = mapper.map(byNameAndAppPeriod, ProjectEvaluationDto.class);
         }
         if (existsById || Objects.nonNull(byNameAndAppPeriod)) {
-            if (Objects.nonNull(projectEvaluationDto.getUserDto())) {
-                oldSheet.setUserDto(projectEvaluationDto.getUserDto());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getDate())) {
-                oldSheet.setDate(projectEvaluationDto.getDate());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getEmployeeName())) {
-                oldSheet.setEmployeeName(projectEvaluationDto.getEmployeeName());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getProjectName())) {
-                oldSheet.setProjectName(projectEvaluationDto.getProjectName());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getCareerLevel())) {
-                oldSheet.setCareerLevel(projectEvaluationDto.getCareerLevel());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getAppraisalPeriod())) {
-                oldSheet.setAppraisalPeriod(projectEvaluationDto.getAppraisalPeriod());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getManager())) {
-                oldSheet.setManager(projectEvaluationDto.getManager());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getFinancialSituation())) {
-                oldSheet.setFinancialSituation(projectEvaluationDto.getFinancialSituation());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getTasksDifficult())) {
-                oldSheet.setTasksDifficult(projectEvaluationDto.getTasksDifficult());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getScope())) {
-                oldSheet.setScope(projectEvaluationDto.getScope());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getFunctionalSpecification())) {
-                oldSheet.setFunctionalSpecification(projectEvaluationDto.getFunctionalSpecification());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getHardToFollow())) {
-                oldSheet.setHardToFollow(projectEvaluationDto.getHardToFollow());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getIndependent())) {
-                oldSheet.setIndependent(projectEvaluationDto.getIndependent());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getSuggestions())) {
-                oldSheet.setSuggestions(projectEvaluationDto.getSuggestions());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getProjectInFiveMonths())) {
-                oldSheet.setProjectInFiveMonths(projectEvaluationDto.getProjectInFiveMonths());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getObstacles())) {
-                oldSheet.setObstacles(projectEvaluationDto.getObstacles());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getBest_sides_highlights())) {
-                oldSheet.setBest_sides_highlights(projectEvaluationDto.getBest_sides_highlights());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getHumanResources())) {
-                oldSheet.setHumanResources(projectEvaluationDto.getHumanResources());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getPeopleSatisfaction())) {
-                oldSheet.setPeopleSatisfaction(projectEvaluationDto.getPeopleSatisfaction());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getFeedbackFromClient())) {
-                oldSheet.setFeedbackFromClient(projectEvaluationDto.getFeedbackFromClient());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getImprovingProcess())) {
-                oldSheet.setImprovingProcess(projectEvaluationDto.getImprovingProcess());
-            }
-            if (Objects.nonNull(projectEvaluationDto.getTime())) {
-                oldSheet.setTime(projectEvaluationDto.getTime());
-            }
-            oldSheet.setLocked(projectEvaluationDto.isLocked());
-            if (Objects.isNull(projectEvaluationDto.getUserDto())) {
-                oldSheet.setUserDto(findByFirstNameAndLastName(projectEvaluationDto));
-            }
+            updateProjectEval(oldSheet, projectEvaluationDto);
             return mapper.map(projectEvaluationDAO.save(mapper.map(oldSheet, ProjectEvaluationEntity.class)), ProjectEvaluationDto.class);
         } else {
             if (Objects.isNull(projectEvaluationDto.getUserDto())) {
@@ -118,22 +48,96 @@ public class ProjectEvaluationServiceImpl implements ProjectEvaluationService {
             }
             return mapper.map(projectEvaluationDAO.save(mapper.map(projectEvaluationDto, ProjectEvaluationEntity.class)), ProjectEvaluationDto.class);
         }
+    }
 
+    private void updateProjectEval(ProjectEvaluationDto oldSheet, ProjectEvaluationDto projectEvaluationDto) {
+        if (Objects.nonNull(projectEvaluationDto.getUserDto())) {
+            oldSheet.setUserDto(projectEvaluationDto.getUserDto());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getDate())) {
+            oldSheet.setDate(projectEvaluationDto.getDate());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getEmployeeName())) {
+            oldSheet.setEmployeeName(projectEvaluationDto.getEmployeeName());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getProjectName())) {
+            oldSheet.setProjectName(projectEvaluationDto.getProjectName());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getCareerLevel())) {
+            oldSheet.setCareerLevel(projectEvaluationDto.getCareerLevel());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getAppraisalPeriod())) {
+            oldSheet.setAppraisalPeriod(projectEvaluationDto.getAppraisalPeriod());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getManager())) {
+            oldSheet.setManager(projectEvaluationDto.getManager());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getFinancialSituation())) {
+            oldSheet.setFinancialSituation(projectEvaluationDto.getFinancialSituation());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getTasksDifficult())) {
+            oldSheet.setTasksDifficult(projectEvaluationDto.getTasksDifficult());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getScope())) {
+            oldSheet.setScope(projectEvaluationDto.getScope());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getFunctionalSpecification())) {
+            oldSheet.setFunctionalSpecification(projectEvaluationDto.getFunctionalSpecification());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getHardToFollow())) {
+            oldSheet.setHardToFollow(projectEvaluationDto.getHardToFollow());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getIndependent())) {
+            oldSheet.setIndependent(projectEvaluationDto.getIndependent());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getSuggestions())) {
+            oldSheet.setSuggestions(projectEvaluationDto.getSuggestions());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getProjectInFiveMonths())) {
+            oldSheet.setProjectInFiveMonths(projectEvaluationDto.getProjectInFiveMonths());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getObstacles())) {
+            oldSheet.setObstacles(projectEvaluationDto.getObstacles());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getBest_sides_highlights())) {
+            oldSheet.setBest_sides_highlights(projectEvaluationDto.getBest_sides_highlights());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getHumanResources())) {
+            oldSheet.setHumanResources(projectEvaluationDto.getHumanResources());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getPeopleSatisfaction())) {
+            oldSheet.setPeopleSatisfaction(projectEvaluationDto.getPeopleSatisfaction());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getFeedbackFromClient())) {
+            oldSheet.setFeedbackFromClient(projectEvaluationDto.getFeedbackFromClient());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getImprovingProcess())) {
+            oldSheet.setImprovingProcess(projectEvaluationDto.getImprovingProcess());
+        }
+        if (Objects.nonNull(projectEvaluationDto.getTime())) {
+            oldSheet.setTime(projectEvaluationDto.getTime());
+        }
+        oldSheet.setLocked(projectEvaluationDto.isLocked());
+        if (Objects.isNull(projectEvaluationDto.getUserDto())) {
+            oldSheet.setUserDto(findByFirstNameAndLastName(projectEvaluationDto));
+        }
     }
 
     @Override
     public List<ProjectEvaluationDto> findAppDocumentsByUser(String userName) {
-        List<ProjectEvaluationDto> appraisalDocuments = new ArrayList<>();
-        List<ProjectEvaluationDto> lockedDocuments = new ArrayList<>();
         int userId = projectEvaluationDAO.getUserIdByUsername(userName);
         int userGroupId = projectEvaluationDAO.getUserGroupIdByUsername(userName);
+        return populateAppraisalDocuments(userName, userId, userGroupId);
+    }
+
+    private List<ProjectEvaluationDto> populateAppraisalDocuments(String userName, int userId, int userGroupId) {
+        List<ProjectEvaluationDto> appraisalDocuments = new ArrayList<>();
         if (userGroupId == 1) {
             appraisalDocuments = projectEvaluationDAO.findAppDocumentsByUserId(userId)
                     .stream()
                     .map(entity -> mapper.map(entity, ProjectEvaluationDto.class))
                     .collect(Collectors.toList());
-        }
-        if (userGroupId == 2) {
+        } else if (userGroupId == 2) {
             int managerOfTheUser = projectEvaluationDAO.getUserManagerIdByUsername(userName);
             appraisalDocuments = projectEvaluationDAO.findAppDocumentsByUserId(userId)
                     .stream()
@@ -145,15 +149,9 @@ public class ProjectEvaluationServiceImpl implements ProjectEvaluationService {
             for (Map.Entry<Integer, List<ProjectEvaluationEntity>> documentsOfEachUser : usersDocuments.entrySet()) {
                 appraisalDocuments.addAll(documentsOfEachUser.getValue().stream().map(entity -> mapper.map(entity, ProjectEvaluationDto.class)).collect(Collectors.toList()));
             }
-        }
-        if (userGroupId == 3) {
+        } else if (userGroupId == 3) {
             appraisalDocuments = projectEvaluationDAO.findAll().stream().map(entity -> mapper.map(entity, ProjectEvaluationDto.class)).collect(Collectors.toList());
-            appraisalDocuments.forEach(value -> {
-                if (value.isLocked()) {
-                    lockedDocuments.add(value);
-                }
-            });
-            return lockedDocuments;
+            appraisalDocuments = appraisalDocuments.stream().filter(document -> document.isLocked()).collect(Collectors.toList());
         }
         return appraisalDocuments;
     }

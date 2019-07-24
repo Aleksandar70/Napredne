@@ -3,6 +3,7 @@ package com.msgnetconomy.appraisalsheet.controller;
 import com.msgnetconomy.appraisalsheet.dto.UserGroupDto;
 import com.msgnetconomy.appraisalsheet.service.UserGroupService;
 import com.sun.net.httpserver.Authenticator;
+import org.dozer.MappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class UserGroupController {
     private static final String API = "http://localhost:4200";
     private static final String ADD_GET_USER_GROUP = "/add-get-user-group";
     private static final Logger logger = LoggerFactory.getLogger(UserGroupController.class);
-    public static final String EXCEPTION = "An exception occurred!";
+    public static final String MAPPING_ERROR = "User group is null!";
 
     @Autowired
     private UserGroupService userGroupService;
@@ -35,8 +36,8 @@ public class UserGroupController {
         try {
             userGroupService.addUserGroup(userGroupDto);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error(EXCEPTION, e);
+        } catch (MappingException e) {
+            logger.error(MAPPING_ERROR, e);
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }

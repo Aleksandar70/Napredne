@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.msgnetconomy.appraisalsheet.dto.UserDto;
 import com.msgnetconomy.appraisalsheet.service.UserService;
+import org.dozer.MappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -33,13 +34,17 @@ public class UserController {
     @CrossOrigin(origins = API)
     public ResponseEntity<String> login(@RequestBody UserDto userDto) {
         JsonObject jsonObject = new JsonObject();
-        String token = userService.authenticate(userDto);
-        if (UNAUTHORIZED.equals(token)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(UNAUTHORIZED);
+        try {
+            String token = userService.authenticate(userDto);
+            if (UNAUTHORIZED.equals(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(UNAUTHORIZED);
+            }
+            jsonObject.addProperty(TOKEN, token);
+            jsonObject.add(USER, new Gson().toJsonTree(getCurrentUser(userDto)));
+            return ResponseEntity.status(HttpStatus.OK).body(jsonObject.toString());
+        } catch (MappingException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Wrong username or password");
         }
-        jsonObject.addProperty(TOKEN, token);
-        jsonObject.add(USER, new Gson().toJsonTree(getCurrentUser(userDto)));
-        return ResponseEntity.status(HttpStatus.OK).body(jsonObject.toString());
     }
 
     public UserDto getCurrentUser(@RequestBody UserDto userDto) {
@@ -71,8 +76,12 @@ public class UserController {
 
     @DeleteMapping(path = DELETE_USER_USERNAME)
     @CrossOrigin(origins = API)
-    public ResponseEntity<UserDto> deleteUser(@PathVariable String username) {
-        userService.removeUser(username);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity removeUser(@PathVariable String username) {
+        try {
+            userService.removeUser(username);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (MappingException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User does not exist");
+        }
     }
 }
