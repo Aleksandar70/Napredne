@@ -4,7 +4,7 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: 'appraisal-sheet-mysql'
+      MYSQL_DATABASE: 'projectevaluation'
       MYSQL_PASSWORD: ''
       MYSQL_ROOT_PASSWORD: ''
     ports:

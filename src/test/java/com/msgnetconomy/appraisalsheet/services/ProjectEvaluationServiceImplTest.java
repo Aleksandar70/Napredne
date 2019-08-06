@@ -1,19 +1,26 @@
 package com.msgnetconomy.appraisalsheet.services;
 
 import com.msgnetconomy.appraisalsheet.dao.ProjectEvaluationDAO;
+import com.msgnetconomy.appraisalsheet.domain.ProjectEvaluationEntity;
+import com.msgnetconomy.appraisalsheet.service.impl.ProjectEvaluationServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@RunWith(SpringRunner.class)
+
+@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class ProjectEvaluationServiceImplTest {
+
+    @InjectMocks
+    ProjectEvaluationServiceImpl projectEvaluationServiceImpl;
 
     @Mock
     private ProjectEvaluationDAO projectEvaluationDAO;
@@ -25,8 +32,9 @@ public class ProjectEvaluationServiceImplTest {
     @Test
     public void saveOrUpdateProjectEvaluationExistByIdTrueTest() {
         boolean existsById = true;
-        int projectEvaluationID = 1;
-        verify(projectEvaluationDAO, times(1)).findById(projectEvaluationID);
+        ProjectEvaluationEntity projectEvaluationEntity = new ProjectEvaluationEntity();
+        projectEvaluationEntity.setProjectEvaluationID(1);
+        verify(projectEvaluationDAO, times(1)).findById(projectEvaluationEntity.getProjectEvaluationID());
     }
 
     @Test

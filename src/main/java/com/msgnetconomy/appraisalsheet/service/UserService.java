@@ -1,5 +1,6 @@
 package com.msgnetconomy.appraisalsheet.service;
 
+import com.msgnetconomy.appraisalsheet.domain.UserEntity;
 import com.msgnetconomy.appraisalsheet.dto.UserDto;
 import org.dozer.MappingException;
 
@@ -18,4 +19,8 @@ public interface UserService {
     List<UserDto> findAllUsers();
 
     void removeUser(String username) throws MappingException;
+
+    void updateUser(UserEntity user);
+
+    void changePassword(UserEntity userEntity, String newPassword);
 }

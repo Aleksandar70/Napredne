@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "project_evaluation", schema = "appraisal-sheet-mysql")
+@Table(name = "project_evaluation", schema = "projectevaluation")
 public class ProjectEvaluationEntity {
 
     private int projectEvaluationID;
